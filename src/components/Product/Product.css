@@ -1,0 +1,21 @@
+.product-box{
+    min-height: 27rem;
+}
+.product-box h5, .product-box h6 {
+    font-weight: bolder;
+    font-size: 0.9rem;
+}
+.product-box > div {
+    min-height: 18rem;
+}
+.product-image{
+    max-width: 8rem;
+    max-height: 10rem;
+}
+.add-to-cart{
+    background: #4B5548;
+    color: #fff;
+    font-size: 0.9rem;
+    padding: 0.7rem 2.5rem;
+    border: 0;
+}

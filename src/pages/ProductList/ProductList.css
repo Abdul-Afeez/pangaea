@@ -1,0 +1,12 @@
+.overflow-x-hidden{
+    overflow-x: hidden;
+}
+.filter{
+    min-height: 2.5rem;
+    min-width: 13rem;
+    font-size: 0.8rem;
+    border: 1px solid lightgrey;
+    background: transparent;
+    padding: 5px 10px;
+    border-radius: 3px;
+}

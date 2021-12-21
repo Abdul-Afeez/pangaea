@@ -1,0 +1,25 @@
+.nav-box{
+    border: 1px solid lightgrey;
+    /*max-height: 2rem;*/
+
+}
+.logo{
+    width: 100%;
+    max-width: 9rem;
+}
+ul{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+ul li {
+    display: inline-block;
+    margin: 0.5rem 1rem 0.5rem 1rem;
+}
+ul li a {
+    cursor: pointer;
+    text-decoration: none;
+}
+ul:last-of-type li {
+    margin: 0.5rem 0.5rem 0.5rem 0.5rem;
+}

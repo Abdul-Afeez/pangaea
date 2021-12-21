@@ -1,8 +1,14 @@
 .grey-bg{
   background: #FCFCFA;
 }
+.deep-grey-bg{
+  background: #E2E6E3;
+}
 .deep-green-color{
   color: #4B5548 !important;
+}
+.deep-green-bg{
+  background: #4B5548 !important;
 }
 *{
   font-family: 'Roboto', sans-serif;
