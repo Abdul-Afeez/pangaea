@@ -1,25 +1,16 @@
-import logo from './logo.svg';
+import React from 'react';
 import './App.css';
+import store from "./Store/Reducers";
+import {Provider} from "react-redux";
+import {AppRoot} from "./components/AppRoot";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+  return <Provider store={store}>
+    <AppRoot />
+  </Provider>
+
 }
 
 export default App;
+// eslint-disable-next-line no-unused-vars
