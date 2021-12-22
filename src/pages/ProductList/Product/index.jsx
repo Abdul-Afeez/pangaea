@@ -27,7 +27,7 @@ export function _Product(props) {
         </div>
         <h5 className="">{title}</h5>
         <h6 className="p-1 pb-2">From {`${selectedCurrency} ${numberWithCommas(price.toFixed(2))}`}</h6>
-        <button onClick={addToCart} className="add-to-cart">Add to Cart</button>
+        <button onClick={addToCart} className="add-to-cart"><strong>Add to Cart</strong></button>
     </section>)
 }
 const MapStateToProps = (state) => ({
