@@ -4,6 +4,7 @@ import {MapGlobalStateToProp} from "../../../Store/MapStateToProp/MapGlobalState
 import {MapGlobalDispatchToProp} from "../../../Store/MapDispatchToProp/MapGlobalDispatchToProp";
 import {connect} from "react-redux";
 import {numberWithCommas} from "../../../Store/Reducers/utils/globalUtil";
+import PropTypes from "prop-types";
 
 export function _Product(props) {
     const {
@@ -36,3 +37,6 @@ const MapDispatchToProp = (dispatch) => ({
     ...MapGlobalDispatchToProp(dispatch)
 });
 export const Product = connect(MapStateToProps, MapDispatchToProp)(_Product);
+Product.propTypes = {
+    model: PropTypes.instanceOf(Object).isRequired,
+};

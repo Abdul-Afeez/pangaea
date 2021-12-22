@@ -1,6 +1,7 @@
 import React from "react";
 import "./CartItem.css";
 import {CartButton} from "../CartButton";
+import PropTypes from 'prop-types';
 import {MapGlobalStateToProp} from "../../../Store/MapStateToProp/MapGlobalStateToProp";
 import {MapGlobalDispatchToProp} from "../../../Store/MapDispatchToProp/MapGlobalDispatchToProp";
 import {connect} from "react-redux";
@@ -36,3 +37,7 @@ const MapDispatchToProp = (dispatch) => ({
     ...MapGlobalDispatchToProp(dispatch)
 });
 export const CartItem = connect(MapStateToProps, MapDispatchToProp)(_CartItem);
+
+CartItem.propTypes = {
+    model: PropTypes.instanceOf(Object).isRequired,
+};
