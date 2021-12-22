@@ -18,17 +18,25 @@
     min-width: 100vw;
 }
 .content {
-    -webkit-animation: slide 0.5s forwards;
-    animation: slide 0.5s forwards;
     z-index: 99999;
     position: absolute;
     background: #F2F2EF;
-    right: -400px;
     height: 100vh;
     min-width: 480px;
     max-width: 600px;
     overflow: hidden;
 }
+.reverse-in{
+    -webkit-animation: slide 0.5s forwards;
+    animation: slide 0.5s forwards;
+    right: -400px;
+}
+.reverse-out{
+    -webkit-animation: revSlide 0.5s forwards;
+    animation: revSlide 0.5s forwards;
+    right: 0;
+}
+
 .cart-item-list-box{
     height: 65vh;
     overflow-y: scroll;
@@ -59,10 +67,10 @@
     100% { right: 0; }
 }
 
-@-webkit-keyframes reverse-slide {
+
+@-webkit-keyframes revSlide {
     100% { right: -480px; }
 }
-
-@keyframes reverse-slide {
+@keyframes revSlide {
     100% { right: -480px; }
 }

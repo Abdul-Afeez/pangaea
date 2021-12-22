@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import "./CartSummary.css"
 import ChevIcon from "../../assets/chev-icon.png"
 import {MapGlobalStateToProp} from "../../Store/MapStateToProp/MapGlobalStateToProp";
@@ -7,7 +7,7 @@ import {connect} from "react-redux";
 import {CartItem} from "../CartItem";
 import {numberWithCommas} from "../../Store/Reducers/GlobalReducer";
 export function _CartSummary(props) {
-
+    const [open, setOpen] = useState(true);
     const {
         cart,
         toggleCartSummary,
@@ -23,7 +23,12 @@ export function _CartSummary(props) {
         fetchCurrenciesProposal();
     }, []);
     const toggleCart = () => {
-        toggleCartSummary(!openCartSummary)
+        setOpen(!open);
+        setTimeout(() => toggleCartSummary(!openCartSummary), 500);
+    };
+    const handleCloseOverlay = () => {
+        setOpen(!open);
+        setTimeout(() => toggleCartSummary(false), 500);
     };
     const renderCartItems = () => {
         const cartItems = [];
@@ -37,7 +42,7 @@ export function _CartSummary(props) {
     };
     return (<section className="cart-summary">
         <div className="cart-summary-box position-relative ">
-            <div className={`content grey-bg p-4 d-flex  flex-column justify-content-between`}>
+            <div className={`content grey-bg p-4 d-flex ${open ? 'reverse-in': 'reverse-out'} flex-column justify-content-between`}>
                <div >
                    <div className="text-center mb-2">
                        My Shopping Cart
@@ -70,7 +75,7 @@ export function _CartSummary(props) {
                    <button className="cart-button-box checkout-btn text-white deep-green-bg"><strong>PROCEED TO CHECKOUT</strong></button>
                </div>}
             </div>
-            <div className="overlay" onClick={() => toggleCartSummary(false)} />
+            <div className="overlay" onClick={handleCloseOverlay} />
         </div>
     </section>)
 }
