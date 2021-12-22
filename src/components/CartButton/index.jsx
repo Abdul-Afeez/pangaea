@@ -1,10 +1,37 @@
-import React from "react";
+import React, {useEffect} from "react";
 import "./CartButton.css";
-export function CartButton({quantity}) {
+import {MapGlobalStateToProp} from "../../Store/MapStateToProp/MapGlobalStateToProp";
+import {MapGlobalDispatchToProp} from "../../Store/MapDispatchToProp/MapGlobalDispatchToProp";
+import {connect} from "react-redux";
+export function _CartButton(props) {
+    const {
+        model,
+        cart,
+        updateCart,
+        toggleCartSummary
+    } = props;
+    useEffect(() => {
+        getQuantity();
+    }, [props]);
 
+    const { id } = model;
+    const getQuantity = () => {
+        return cart.get(id).quantity
+    };
+    const addToCart = (factor) => {
+        const existingQuantity = cart.has(id) ? cart.get(id).quantity : 0;
+        updateCart({model, quantity: existingQuantity + factor});
+    };
     return (<section className="cart-button-box d-flex align-items-center justify-content-between">
-        <div className="quantity-control cursor-pointer">-</div>
-        <div>{quantity}</div>
-        <div className="quantity-control cursor-pointer">+</div>
+        <div onClick={() => addToCart(-1)} className="quantity-control cursor-pointer">-</div>
+        <div>{getQuantity()}</div>
+        <div onClick={() => addToCart(1)} className="quantity-control cursor-pointer">+</div>
     </section>)
 }
+const MapStateToProps = (state) => ({
+    ...MapGlobalStateToProp(state)
+});
+const MapDispatchToProp = (dispatch) => ({
+    ...MapGlobalDispatchToProp(dispatch)
+});
+export const CartButton = connect(MapStateToProps, MapDispatchToProp)(_CartButton);

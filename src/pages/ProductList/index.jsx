@@ -1,19 +1,27 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {NavBar} from "../../components/NavBar";
 import "./ProductList.css";
 import {Product} from "../../components/Product";
-import {useQuery} from "@apollo/client";
-import {PRODUCTS_QUERY} from "../../queries/products";
-// import {CartSummary} from "../../components/CartSummary";
+import {CartSummary} from "../../components/CartSummary";
+import {MapGlobalStateToProp} from "../../Store/MapStateToProp/MapGlobalStateToProp";
+import {MapGlobalDispatchToProp} from "../../Store/MapDispatchToProp/MapGlobalDispatchToProp";
+import {connect} from "react-redux";
 
-export function ProductList() {
-    const currency = "NGN";
-    const { loading, error, data } = useQuery(PRODUCTS_QUERY, {
-        variables: { currency  }
-    });
-    if (loading) return <p>Loading...</p>;
-    if (error) return <p>Error :(</p>;
-    const {products} = data;
+export function _ProductList(props) {
+    const{
+        openCartSummary,
+        selectedCurrency,
+        allProducts,
+        fetchProductProposal
+    } = props;
+    useEffect(() => {
+        fetchProductProposal(selectedCurrency)
+    }, []);
+    const renderAllProducts = () => {
+        const products = [];
+        allProducts.forEach(product => products.push(<Product key={product.id} model={product}/>))
+        return products;
+    };
     return (<section className="overflow-x-hidden">
         <header>
             <NavBar/>
@@ -35,8 +43,16 @@ export function ProductList() {
         <br/>
         <br/>
         <article className="deep-grey-bg row">
-            {products.map(product => <Product model={product}/>)}
+            {renderAllProducts()}
         </article>
-        {/*<CartSummary />*/}
+        { openCartSummary && <CartSummary /> }
     </section>)
 }
+const MapStateToProps = (state) => ({
+    ...MapGlobalStateToProp(state)
+});
+const MapDispatchToProp = (dispatch) => ({
+    ...MapGlobalDispatchToProp(dispatch),
+    fetchProductProposal: (currency) => dispatch({type: 'FETCH_PRODUCTS_PROPOSAL', payload: { currency }})
+});
+export const ProductList = connect(MapStateToProps, MapDispatchToProp)(_ProductList);

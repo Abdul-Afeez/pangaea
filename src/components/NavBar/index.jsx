@@ -1,8 +1,15 @@
 import React from "react";
 import "./NavBar.css"
-export function NavBar() {
+import {MapGlobalStateToProp} from "../../Store/MapStateToProp/MapGlobalStateToProp";
+import {MapGlobalDispatchToProp} from "../../Store/MapDispatchToProp/MapGlobalDispatchToProp";
+import {connect} from "react-redux";
+export function _NavBar(props) {
+    const {
+        toggleCartSummary,
+        openCartSummary
+    } = props;
     const openCart = () => {
-        return false;
+        toggleCartSummary(!openCartSummary)
     };
     return (<nav>
         <div className="nav-box grey-bg d-flex align-items-center ps-3 pe-5 justify-content-between">
@@ -24,3 +31,10 @@ export function NavBar() {
         </div>
     </nav>)
 }
+const MapStateToProps = (state) => ({
+    ...MapGlobalStateToProp(state)
+});
+const MapDispatchToProp = (dispatch) => ({
+    ...MapGlobalDispatchToProp(dispatch)
+});
+export const NavBar = connect(MapStateToProps, MapDispatchToProp)(_NavBar);
