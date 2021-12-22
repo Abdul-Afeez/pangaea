@@ -10,7 +10,7 @@ export const GlobalInitialState = {
 };
 export function GlobalReducer(state = GlobalInitialState, action) {
     let versionedState;
-    const { cart } = state;
+    const { cart, openCartSummary } = state;
     switch (action.type) {
         case GlobalActionTypes.UPDATE_CART:
             const copyCart = cart;
@@ -18,8 +18,10 @@ export function GlobalReducer(state = GlobalInitialState, action) {
             const itemExists = copyCart.has(id);
             if (itemExists && quantity) {
                 const cartItem = cart.get(id);
-                cartItem.quantity = quantity;
-                copyCart.set(id, {...cartItem});
+                if (!openCartSummary) {
+                    cart.delete(id);
+                }
+                copyCart.set(id, {...cartItem, quantity});
             }
             else if (!itemExists && quantity) {
                 copyCart.set(id, { id, quantity, price, title, image_url })

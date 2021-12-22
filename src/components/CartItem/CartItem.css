@@ -13,3 +13,10 @@
     top: 5px;
     right: 10px;
 }
+
+
+@media screen and (max-width: 768px) {
+    .cart-item-info{
+        min-width: 10rem;
+    }
+}

@@ -27,3 +27,8 @@ ul:last-of-type li {
     position: absolute;
     top: -4px;
 }
+@media screen and (max-width: 768px) {
+    .logo{
+        max-width: 5rem;
+    }
+}

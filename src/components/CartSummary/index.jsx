@@ -35,6 +35,7 @@ export function _CartSummary(props) {
         cart.forEach(cartItem => {
             cartItems.push(cartItem)
        });
+        cartItems.reverse();
        return  cartItems.map(product => <CartItem key={product.id} model={product} />)
     };
     const handleChangeCurrency = ({ target: { value } }) => {

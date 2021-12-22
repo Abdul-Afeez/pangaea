@@ -14,6 +14,8 @@ export function* fetchProducts(action) {
     });
     const { data: { products } } =response;
     yield put({type: 'UPDATE_ALL_PRODUCTS', payload: products});
+    yield put({type: 'CHANGE_CURRENCY', payload: currency});
+
 }
 export function* fetchCurrencies() {
     const response = yield call(async () => {
@@ -23,7 +25,6 @@ export function* fetchCurrencies() {
     yield put({type: 'SAVE_CURRENCIES', payload: currency});
 }
 export function* changeCurrency({payload}) {
-    yield put({type: 'CHANGE_CURRENCY', payload});
     yield put({type: 'FETCH_PRODUCTS_PROPOSAL', payload: {currency: payload} });
 }
 
