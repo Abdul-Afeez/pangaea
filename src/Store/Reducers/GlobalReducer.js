@@ -1,11 +1,15 @@
 import {GlobalActionTypes} from "../Actions/GlobalAction";
+import {getCartMeta} from "./utils/globalUtil";
+import {environment} from "../../environment";
+
 export const GlobalInitialState = {
     allProducts: new Map(),
     cart: new Map(),
     cartTotal: 0,
     cartSize: 0,
     openCartSummary: false,
-    selectedCurrency: "USD",
+    loadingProducts: true,
+    selectedCurrency: environment.defaultCurrency,
     currencies: []
 };
 export function GlobalReducer(state = GlobalInitialState, action) {
@@ -54,6 +58,12 @@ export function GlobalReducer(state = GlobalInitialState, action) {
                 selectedCurrency: action.payload,
             };
             break;
+        case GlobalActionTypes.LOADING_PRODUCTS:
+            versionedState = {
+                ...state,
+                loadingProducts: action.payload,
+            };
+            break;
         case GlobalActionTypes.UPDATE_ALL_PRODUCTS:
             const productsMap = new Map();
             action.payload.forEach((product) => {
@@ -79,15 +89,3 @@ export function GlobalReducer(state = GlobalInitialState, action) {
     return versionedState;
 }
 
-function getCartMeta(cart) {
-    let cartTotal = 0;
-    let cartSize = 0;
-    cart.forEach(cartItem => {
-        cartTotal += (cartItem.price * cartItem.quantity);
-        cartSize += cartItem.quantity
-    });
-    return {cartTotal, cartSize};
-}
-export function numberWithCommas(x) {
-    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-}

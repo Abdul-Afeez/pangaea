@@ -4,8 +4,8 @@ import ChevIcon from "../../assets/chev-icon.png"
 import {MapGlobalStateToProp} from "../../Store/MapStateToProp/MapGlobalStateToProp";
 import {MapGlobalDispatchToProp} from "../../Store/MapDispatchToProp/MapGlobalDispatchToProp";
 import {connect} from "react-redux";
-import {CartItem} from "../CartItem";
-import {numberWithCommas} from "../../Store/Reducers/GlobalReducer";
+import {CartItem} from "./CartItem";
+import {numberWithCommas} from "../../Store/Reducers/utils/globalUtil";
 export function _CartSummary(props) {
     const [open, setOpen] = useState(true);
     const {
@@ -21,7 +21,7 @@ export function _CartSummary(props) {
     } = props;
     useEffect(() => {
         fetchCurrenciesProposal();
-    }, []);
+    }, [fetchCurrenciesProposal]);
     const toggleCart = () => {
         setOpen(!open);
         setTimeout(() => toggleCartSummary(!openCartSummary), 500);

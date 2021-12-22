@@ -1,10 +1,10 @@
 import React from "react";
 import "./CartItem.css";
 import {CartButton} from "../CartButton";
-import {MapGlobalStateToProp} from "../../Store/MapStateToProp/MapGlobalStateToProp";
-import {MapGlobalDispatchToProp} from "../../Store/MapDispatchToProp/MapGlobalDispatchToProp";
+import {MapGlobalStateToProp} from "../../../Store/MapStateToProp/MapGlobalStateToProp";
+import {MapGlobalDispatchToProp} from "../../../Store/MapDispatchToProp/MapGlobalDispatchToProp";
 import {connect} from "react-redux";
-import {numberWithCommas} from "../../Store/Reducers/GlobalReducer";
+import {numberWithCommas} from "../../../Store/Reducers/utils/globalUtil";
 export function _CartItem(props) {
     const {
         model,

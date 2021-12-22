@@ -1,7 +1,7 @@
 import React, {useEffect} from "react";
 import "./CartButton.css";
-import {MapGlobalStateToProp} from "../../Store/MapStateToProp/MapGlobalStateToProp";
-import {MapGlobalDispatchToProp} from "../../Store/MapDispatchToProp/MapGlobalDispatchToProp";
+import {MapGlobalStateToProp} from "../../../Store/MapStateToProp/MapGlobalStateToProp";
+import {MapGlobalDispatchToProp} from "../../../Store/MapDispatchToProp/MapGlobalDispatchToProp";
 import {connect} from "react-redux";
 export function _CartButton(props) {
     const {

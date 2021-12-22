@@ -1,4 +1,4 @@
-import {debounce, takeLatest, call, put} from "redux-saga/effects";
+import {takeLatest, call, put} from "redux-saga/effects";
 import {ApolloClient, InMemoryCache} from "@apollo/client";
 import {environment} from "../../environment";
 import {PRODUCTS_QUERY} from "../../queries/products";
@@ -8,13 +8,15 @@ export const client = new ApolloClient({
     cache: new InMemoryCache()
 });
 export function* fetchProducts(action) {
-    const { currency } = action.payload || { currency: "USD" };
+    yield put({type: 'LOADING_PRODUCTS', payload: true});
+    const { currency } = action.payload || { currency: environment.defaultCurrency };
     const response = yield call(async () => {
         return await client.query({query: PRODUCTS_QUERY, variables: {currency}});
     });
     const { data: { products } } =response;
     yield put({type: 'UPDATE_ALL_PRODUCTS', payload: products});
     yield put({type: 'CHANGE_CURRENCY', payload: currency});
+    yield put({type: 'LOADING_PRODUCTS', payload: false});
 
 }
 export function* fetchCurrencies() {
@@ -22,7 +24,9 @@ export function* fetchCurrencies() {
         return await client.query({query: CURRENCY_QUERY});
     });
     const { data: { currency } } =response;
-    yield put({type: 'SAVE_CURRENCIES', payload: currency});
+    if (response) {
+        yield put({type: 'SAVE_CURRENCIES', payload: currency});
+    }
 }
 export function* changeCurrency({payload}) {
     yield put({type: 'FETCH_PRODUCTS_PROPOSAL', payload: {currency: payload} });

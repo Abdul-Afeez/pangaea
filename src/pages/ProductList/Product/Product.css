@@ -1,12 +1,15 @@
 .product-box{
     min-height: 27rem;
 }
+.products-box{
+    min-height: 70vh;
+}
 .product-box h5, .product-box h6 {
     font-weight: bolder;
     font-size: 0.9rem;
 }
 .product-box > div {
-    min-height: 18rem;
+    min-height: 16rem;
 }
 .product-image{
     max-width: 8rem;

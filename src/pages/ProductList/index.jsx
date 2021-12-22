@@ -1,26 +1,30 @@
 import React, {useEffect} from "react";
 import {NavBar} from "../../components/NavBar";
 import "./ProductList.css";
-import {Product} from "../../components/Product";
+import {Product} from "./Product";
 import {CartSummary} from "../../components/CartSummary";
 import {MapGlobalStateToProp} from "../../Store/MapStateToProp/MapGlobalStateToProp";
-import {MapGlobalDispatchToProp} from "../../Store/MapDispatchToProp/MapGlobalDispatchToProp";
 import {connect} from "react-redux";
+import {ProductPlaceHolder} from "./ProductPlaceHolder";
 
 export function _ProductList(props) {
     const{
         openCartSummary,
         selectedCurrency,
+        loadingProducts,
         allProducts,
         fetchProductProposal,
     } = props;
     useEffect(() => {
         fetchProductProposal(selectedCurrency)
-    }, []);
+    }, [selectedCurrency, fetchProductProposal]);
     const renderAllProducts = () => {
         const products = [];
         allProducts.forEach(product => products.push(<Product key={product.id} model={product}/>))
         return products;
+    };
+    const renderProductPlaceHolders = () => {
+        return  new Array(3).fill(0).map((item, index) => <ProductPlaceHolder key={`a-${index}`} />);
     };
     return (<section className={openCartSummary ? 'stiff' : 'overflow-x-hidden'}>
         <header>
@@ -42,8 +46,8 @@ export function _ProductList(props) {
         </article>
         <br/>
         <br/>
-        <article className="deep-grey-bg row">
-            {renderAllProducts()}
+        <article className="deep-grey-bg row products-box">
+            {loadingProducts ? renderProductPlaceHolders() : renderAllProducts()}
             <div className="w-100" />
             <br/><br/><br/>
         </article>
@@ -54,7 +58,6 @@ const MapStateToProps = (state) => ({
     ...MapGlobalStateToProp(state)
 });
 const MapDispatchToProp = (dispatch) => ({
-    ...MapGlobalDispatchToProp(dispatch),
     fetchProductProposal: (currency) => dispatch({type: 'FETCH_PRODUCTS_PROPOSAL', payload: { currency }})
 });
 export const ProductList = connect(MapStateToProps, MapDispatchToProp)(_ProductList);
