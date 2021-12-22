@@ -3,6 +3,7 @@ import "./Product.css"
 import {MapGlobalStateToProp} from "../../Store/MapStateToProp/MapGlobalStateToProp";
 import {MapGlobalDispatchToProp} from "../../Store/MapDispatchToProp/MapGlobalDispatchToProp";
 import {connect} from "react-redux";
+import {numberWithCommas} from "../../Store/Reducers/GlobalReducer";
 
 export function _Product(props) {
     const {
@@ -24,7 +25,7 @@ export function _Product(props) {
 
         </div>
         <h5 className="">{title}</h5>
-        <h6 className="p-1 pb-2">From {`${selectedCurrency} ${price}`}</h6>
+        <h6 className="p-1 pb-2">From {`${selectedCurrency} ${numberWithCommas(price.toFixed(2))}`}</h6>
         <button onClick={addToCart} className="add-to-cart">Add to Cart</button>
     </section>)
 }

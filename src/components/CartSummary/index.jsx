@@ -5,6 +5,7 @@ import {MapGlobalStateToProp} from "../../Store/MapStateToProp/MapGlobalStateToP
 import {MapGlobalDispatchToProp} from "../../Store/MapDispatchToProp/MapGlobalDispatchToProp";
 import {connect} from "react-redux";
 import {CartItem} from "../CartItem";
+import {numberWithCommas} from "../../Store/Reducers/GlobalReducer";
 export function _CartSummary(props) {
 
     const {
@@ -12,6 +13,7 @@ export function _CartSummary(props) {
         toggleCartSummary,
         openCartSummary,
         cartTotal,
+        cartSize,
         selectedCurrency,
         currencies,
         fetchCurrenciesProposal,
@@ -35,7 +37,7 @@ export function _CartSummary(props) {
     };
     return (<section className="cart-summary">
         <div className="cart-summary-box position-relative ">
-            <div className="content grey-bg p-4 d-flex flex-column justify-content-between">
+            <div className={`content grey-bg p-4 d-flex  flex-column justify-content-between`}>
                <div >
                    <div className="text-center mb-2">
                        My Shopping Cart
@@ -50,16 +52,23 @@ export function _CartSummary(props) {
                    </div>
                    <br/>
                    <div className="cart-item-list-box">
-                       {renderCartItems()}
+                       {!!cartSize ? renderCartItems() : (
+                           <div className="d-flex align-items-center h-100 w-100" >
+                               <div className="no-cart-size text-center w-100">There are no items in your cart
+                                   <br/>
+                                   Get shopping >>
+                               </div>
+                           </div>
+                       )}
                    </div>
                </div>
-               <div>
+                { !!cartSize && <div>
                    <div className="d-flex pb-3 justify-content-between">
-                       <div><strong>SUBTOTAL</strong></div>
-                       <div><strong>{`${selectedCurrency} ${cartTotal}`}</strong></div>
+                       <div><strong className="font-size-0-9">SUBTOTAL</strong></div>
+                       <div><strong className="font-size-0-9">{`${selectedCurrency} ${numberWithCommas(cartTotal.toFixed(2))}`}</strong></div>
                    </div>
                    <button className="cart-button-box checkout-btn text-white deep-green-bg"><strong>PROCEED TO CHECKOUT</strong></button>
-               </div>
+               </div>}
             </div>
             <div className="overlay" onClick={() => toggleCartSummary(false)} />
         </div>

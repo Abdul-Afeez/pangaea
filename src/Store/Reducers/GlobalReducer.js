@@ -3,6 +3,7 @@ export const GlobalInitialState = {
     allProducts: new Map(),
     cart: new Map(),
     cartTotal: 0,
+    cartSize: 0,
     openCartSummary: false,
     selectedCurrency: "USD",
     currencies: []
@@ -30,7 +31,7 @@ export function GlobalReducer(state = GlobalInitialState, action) {
             versionedState = {
                 ...state,
                 cart: copyCart,
-                cartTotal: getCartTotal(cart)
+                ...getCartMeta(cart)
             };
             break;
         case GlobalActionTypes.TOGGLE_CART_SUMMARY:
@@ -67,7 +68,7 @@ export function GlobalReducer(state = GlobalInitialState, action) {
                 ...state,
                 allProducts: productsMap,
                 cart: cart,
-                cartTotal: getCartTotal(cart)
+                ...getCartMeta(cart)
             };
             break;
         default:
@@ -76,10 +77,15 @@ export function GlobalReducer(state = GlobalInitialState, action) {
     return versionedState;
 }
 
-function getCartTotal(cart) {
-    let total = 0;
+function getCartMeta(cart) {
+    let cartTotal = 0;
+    let cartSize = 0;
     cart.forEach(cartItem => {
-        total += (cartItem.price * cartItem.quantity);
+        cartTotal += (cartItem.price * cartItem.quantity);
+        cartSize += cartItem.quantity
     });
-    return total;
+    return {cartTotal, cartSize};
+}
+export function numberWithCommas(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }

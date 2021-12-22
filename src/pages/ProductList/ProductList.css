@@ -1,6 +1,11 @@
 .overflow-x-hidden{
     overflow-x: hidden;
 }
+.stiff{
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+}
 .filter{
     min-height: 2.5rem;
     min-width: 13rem;

@@ -1,8 +1,7 @@
 import React from "react";
 import {Route, BrowserRouter as Router, Switch} from "react-router-dom";
 import {ProductList} from "../../pages/ProductList";
-import {ApolloClient, ApolloProvider, InMemoryCache} from "@apollo/client";
-import {environment} from "../../environment";
+import {ApolloProvider} from "@apollo/client";
 import {client} from "../../Store/Saga/GlobalSaga";
 
 export function AppRoot() {

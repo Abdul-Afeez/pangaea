@@ -16,6 +16,12 @@
 *{
   font-family: 'Roboto', sans-serif;
 }
+.font-size-0-9{
+  font-size: 0.9rem;
+}
+.font-size-0-8{
+  font-size: 0.8rem;
+}
 .cart-button-box{
   min-width: 70px;
   max-width: 100px;

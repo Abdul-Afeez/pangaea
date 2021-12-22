@@ -12,7 +12,7 @@ export function _ProductList(props) {
         openCartSummary,
         selectedCurrency,
         allProducts,
-        fetchProductProposal
+        fetchProductProposal,
     } = props;
     useEffect(() => {
         fetchProductProposal(selectedCurrency)
@@ -22,7 +22,7 @@ export function _ProductList(props) {
         allProducts.forEach(product => products.push(<Product key={product.id} model={product}/>))
         return products;
     };
-    return (<section className="overflow-x-hidden">
+    return (<section className={openCartSummary ? 'stiff' : 'overflow-x-hidden'}>
         <header>
             <NavBar/>
         </header>
@@ -44,6 +44,8 @@ export function _ProductList(props) {
         <br/>
         <article className="deep-grey-bg row">
             {renderAllProducts()}
+            <div className="w-100" />
+            <br/><br/><br/>
         </article>
         { openCartSummary && <CartSummary /> }
     </section>)

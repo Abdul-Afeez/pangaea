@@ -23,3 +23,7 @@ ul li a {
 ul:last-of-type li {
     margin: 0.5rem 0.5rem 0.5rem 0.5rem;
 }
+.cart-size{
+    position: absolute;
+    top: -4px;
+}

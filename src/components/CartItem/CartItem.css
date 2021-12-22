@@ -1,6 +1,9 @@
 .cart-item-box{
     min-height: 7rem;
 }
+.cart-item-info{
+    min-width: 18rem;
+}
 .cart-item-image {
     max-width: 3rem;
     max-height: 3rem;

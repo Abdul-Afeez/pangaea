@@ -8,7 +8,6 @@ export function _CartButton(props) {
         model,
         cart,
         updateCart,
-        toggleCartSummary
     } = props;
     useEffect(() => {
         getQuantity();
@@ -22,9 +21,9 @@ export function _CartButton(props) {
         const existingQuantity = cart.has(id) ? cart.get(id).quantity : 0;
         updateCart({model, quantity: existingQuantity + factor});
     };
-    return (<section className="cart-button-box d-flex align-items-center justify-content-between">
+    return (<section className="cart-button-box user-select-none  d-flex align-items-center justify-content-between">
         <div onClick={() => addToCart(-1)} className="quantity-control cursor-pointer">-</div>
-        <div>{getQuantity()}</div>
+        <div className="font-size-0-9 pt-1">{getQuantity()}</div>
         <div onClick={() => addToCart(1)} className="quantity-control cursor-pointer">+</div>
     </section>)
 }

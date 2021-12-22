@@ -1,12 +1,14 @@
 import React from "react";
-import "./NavBar.css"
+import "./NavBar.css";
+import CartIcon from "../../assets/cart.png"
 import {MapGlobalStateToProp} from "../../Store/MapStateToProp/MapGlobalStateToProp";
 import {MapGlobalDispatchToProp} from "../../Store/MapDispatchToProp/MapGlobalDispatchToProp";
 import {connect} from "react-redux";
 export function _NavBar(props) {
     const {
         toggleCartSummary,
-        openCartSummary
+        openCartSummary,
+        cartSize
     } = props;
     const openCart = () => {
         toggleCartSummary(!openCartSummary)
@@ -26,7 +28,12 @@ export function _NavBar(props) {
             </ul>
             <ul>
                 <li><a className="deep-green-color" href="#">Account</a></li>
-                <li><a className="deep-green-color" href="#" onClick={openCart}><i className="fa fa-cart-arrow-down" /></a></li>
+                <li className="position-relative" onClick={openCart}>
+                    <a className="deep-green-color" href="#" >
+                    <img src={CartIcon} alt=""/>
+                    </a>
+                    <span className="cart-size cursor-pointer">{cartSize}</span>
+                </li>
             </ul>
         </div>
     </nav>)
