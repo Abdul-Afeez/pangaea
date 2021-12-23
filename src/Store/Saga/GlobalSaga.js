@@ -8,16 +8,19 @@ export const client = new ApolloClient({
     cache: new InMemoryCache()
 });
 export function* fetchProducts(action) {
-    yield put({type: 'LOADING_PRODUCTS', payload: true});
-    const { currency } = action.payload || { currency: environment.defaultCurrency };
-    const response = yield call(async () => {
-        return await client.query({query: PRODUCTS_QUERY, variables: {currency}});
-    });
-    const { data: { products } } =response;
-    yield put({type: 'UPDATE_ALL_PRODUCTS', payload: products});
-    yield put({type: 'CHANGE_CURRENCY', payload: currency});
-    yield put({type: 'LOADING_PRODUCTS', payload: false});
-
+    try{
+        yield put({type: 'LOADING_PRODUCTS', payload: true});
+        const { currency } = action.payload || { currency: environment.defaultCurrency };
+        const response = yield call(async () => {
+            return await client.query({query: PRODUCTS_QUERY, variables: {currency}});
+        });
+        const { data: { products } } =response;
+        yield put({type: 'UPDATE_ALL_PRODUCTS', payload: products});
+        yield put({type: 'CHANGE_CURRENCY', payload: currency});
+        yield put({type: 'LOADING_PRODUCTS', payload: false});
+    } catch (e) {
+        yield put({type: 'LOADING_PRODUCTS', payload: false});
+    }
 }
 export function* fetchCurrencies() {
     const response = yield call(async () => {
